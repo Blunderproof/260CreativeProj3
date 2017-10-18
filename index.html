@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="Scripture App" >
+<head>
+  <meta charset="utf-8">
+  <title>Scripture App</title>
+  <link rel="stylesheet" href="main.css">
+  <script>document.write("<base href=\"" + document.location + "\" />");</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+  <div class="wrapper" ng-controller="MainController">
+    <div class="box header">
+      Single-Page Scriptures (<a href="https://github.com/bcbooks/scriptures-json">Files Source</a>)
+    </div>
+    <div  class="box sidebar">
+      <nav class="nav-menu">
+        <ul >
+          <li>
+            <a href="#" ng-click="navUpSidebar()"> NAV UP</a>
+          </li>
+          <div ng-show="stackDepthQuery(0)" class="ng-hide">
+            <li ng-repeat="stdWorksBook in stdWorks">
+              <a href="#" ng-click="navInSidebar($index)">{{stdWorksBook}}</a>
+            </li>
+          </div>
+          <div ng-show="stackDepthQuery(1)" class="ng-hide">
+            <li ng-repeat="givenBook in books">
+              <a href="#" ng-click="navInSidebar($index)">{{givenBook.book}}</a>
+            </li>
+          </div>
+          <div ng-show="stackDepthQuery(2)" class="ng-hide">
+            <li ng-repeat="givenChapter in bookChapters">
+              <a href="#" ng-click="navInSidebar($index)">{{givenChapter.reference}}</a>
+            </li>
+        </div>
+        </ul>
+      </nav>
+    </div>
+  <div class="box content">
+    <div style="padding: 60px; font-size: 28pt;" ng-show="chapterOpenBool()" class="ng-hide">
+      Click the sidebar, navegate to a chapter.
+    </div>
+    <div class="chapter">
+    <ul>
+      <li ng-repeat="(key, value) in chapter">
+        {{value.reference}}, {{ value.text }}
+      </li>
+    </ul>
+  </div>
+  </div>
+</div>
+</body>
+</html>
